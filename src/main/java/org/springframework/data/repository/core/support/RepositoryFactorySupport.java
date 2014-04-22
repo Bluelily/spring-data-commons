@@ -159,6 +159,9 @@ public abstract class RepositoryFactorySupport implements BeanClassLoaderAware {
 		// Create proxy
 		ProxyFactory result = new ProxyFactory();
 		result.setTarget(target);
+
+		// Required to work around SPR-11715 for now - FIXME: remove before merge
+		result.setOpaque(true);
 		result.setInterfaces(new Class[] { repositoryInterface, Repository.class });
 
 		for (RepositoryProxyPostProcessor processor : postProcessors) {
